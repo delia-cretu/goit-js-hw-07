@@ -106,15 +106,15 @@ function galleryImageClick(e) {
 
 // Lightbox
 
-import * as basicLightbox from "basiclightbox";
+// import * as basicLightbox from "basiclightbox";
 
-gallery.addEventListener("click", openImageInLightbox);
-function openImageInLightbox(e) {
-  if (e.target.nodeName !== "IMG") {
-    return;
-  }
-  e.preventDefault();
-  basicLightbox
-    .create(`<img width="1400" height="900" src="${e.target.dataset.source}"/>`)
-    .show();
-}
+// gallery.addEventListener("click", openImageInLightbox);
+// function openImageInLightbox(e) {
+//   if (e.target.nodeName !== "IMG") {
+//     return;
+//   }
+//   e.preventDefault();
+//   basicLightbox
+//     .create(`<img width="1400" height="900" src="${e.target.dataset.source}"/>`)
+//     .show();
+// }
