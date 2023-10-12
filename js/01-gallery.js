@@ -73,48 +73,30 @@ const gallery = document.querySelector("ul");
 galleryItems.forEach((galleryItem) => {
   gallery.insertAdjacentHTML(
     "afterbegin",
-    "<li class='gallery__item'><a class='gallery__link'><img class='gallery__image'></img></a></li>"
+    `<li class="gallery__item"><a class="gallery__link" href="${galleryItem.original}"><img class="gallery__image" src = "${galleryItem.preview}" data-source="${galleryItem.original}" alt = "${galleryItem.description}"></img></a></li>`
   );
-
-  var galleryImage = gallery.querySelector(".gallery__image");
-  galleryImage.alt = galleryItem.description;
-  galleryImage.src = galleryItem.preview;
-  // galleryImage.data-source = galleryItem.original;
-
-  var galleryLink = gallery.querySelector(".gallery__link");
-  galleryLink.href = galleryItem.original;
-
-  // galleryLink.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  // });
 });
 
-// Event listeners
+// Lightbox
 
-// gallery.addEventListener("click", clickLink);
-// function clickLink(e) {
-//   if (e.target.className !== "gallery__link") {return;}
-//   e.preventDefault();
-// }
+import basicLightbox from "basiclightbox";
 
-document.addEventListener("keydown", galleryImageClick);
-function galleryImageClick(e) {
+gallery.addEventListener("click", openImageInLightbox);
+function openImageInLightbox(e) {
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
+  e.preventDefault();
+  basicLightbox
+    .create(`<img width="1400" height="900" src="${e.target.dataset.source}"/>`)
+    .show();
+}
+
+// Event listener on ESC
+
+document.addEventListener("keydown", escapeImage);
+function escapeImage(e) {
   if (e.key === "Escape") {
     console.log("Escape");
   }
 }
-
-// Lightbox
-
-// import * as basicLightbox from "basiclightbox";
-
-// gallery.addEventListener("click", openImageInLightbox);
-// function openImageInLightbox(e) {
-//   if (e.target.nodeName !== "IMG") {
-//     return;
-//   }
-//   e.preventDefault();
-//   basicLightbox
-//     .create(`<img width="1400" height="900" src="${e.target.dataset.source}"/>`)
-//     .show();
-// }
