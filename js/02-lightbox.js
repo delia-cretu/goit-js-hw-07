@@ -77,27 +77,6 @@ galleryItems.forEach((galleryItem) => {
   );
 });
 
-// Lightbox
-
-// basicLightbox
-//   .create(
-//     `<img width="1400" height="900" src="${event.target.dataset.source}"/>`,
-//     {
-//       onShow: (instance) => {
-//         this.escImage = function (e) {
-//           if (e.key === "Escape") {
-//             instance.close();
-//           }
-//         };
-//         document.addEventListener("keydown", this.escImage);
-//       },
-//       onClose: () => {
-//         document.removeEventListener("keydown", this.escImage);
-//       },
-//     }
-//   )
-//   .show();
-
 // Simple Lightbox
 
 // import SimpleLightbox from "simplelightbox";
@@ -120,6 +99,15 @@ function openImageInLightbox(e) {
     animationSlide: "true",
     animationSpeed: "250",
     enableKeyboard: "true",
+    close: "true",
   });
   lightbox.show();
+}
+
+document.addEventListener("keydown", escImage);
+function escImage(e) {
+  if (e.key === "Escape") {
+    lightbox.close();
+    document.removeEventListener("keydown", escImage);
+  }
 }
