@@ -79,11 +79,11 @@ galleryItems.forEach((galleryItem) => {
 
 // Lightbox
 
-import basicLightbox from "basiclightbox";
+// import basicLightbox from "basiclightbox";
 
 gallery.addEventListener("click", openImageInLightbox);
 function openImageInLightbox(event) {
-  if (e.target.nodeName !== "IMG") {
+  if (event.target.nodeName !== "IMG") {
     return;
   }
   event.preventDefault();
