@@ -82,26 +82,27 @@ galleryItems.forEach((galleryItem) => {
 // import SimpleLightbox from "simplelightbox";
 // import "simplelightbox/dist/simple-lightbox.min.css";
 
+var lightbox = new SimpleLightbox(gallery, {
+  elements: ".gallery a",
+  captions: "true",
+  captionSelector: "self",
+  captionPosition: "bottom",
+  captionType: "attr",
+  captionsData: "alt",
+  captionDelay: "250",
+  animationSlide: "true",
+  animationSpeed: "250",
+  enableKeyboard: "true",
+  close: "true",
+});
+
 gallery.addEventListener("click", openImageInLightbox);
 function openImageInLightbox(e) {
   if (e.target.nodeName !== "IMG") {
     return;
   }
   e.preventDefault();
-  var lightbox = new SimpleLightbox(gallery, {
-    elements: ".gallery a",
-    captions: "true",
-    captionSelector: "self",
-    captionPosition: "bottom",
-    captionType: "attr",
-    captionsData: "alt",
-    captionDelay: "250",
-    animationSlide: "true",
-    animationSpeed: "250",
-    enableKeyboard: "true",
-    close: "true",
-  });
-  lightbox.show();
+  lightbox.open();
 }
 
 document.addEventListener("keydown", escImage);
