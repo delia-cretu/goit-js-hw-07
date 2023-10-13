@@ -82,21 +82,27 @@ galleryItems.forEach((galleryItem) => {
 import basicLightbox from "basiclightbox";
 
 gallery.addEventListener("click", openImageInLightbox);
-function openImageInLightbox(e) {
+function openImageInLightbox(event) {
   if (e.target.nodeName !== "IMG") {
     return;
   }
-  e.preventDefault();
+  event.preventDefault();
   basicLightbox
-    .create(`<img width="1400" height="900" src="${e.target.dataset.source}"/>`)
+    .create(
+      `<img width="1400" height="900" src="${event.target.dataset.source}"/>`,
+      {
+        onShow: (instance) => {
+          this.escImage = function (e) {
+            if (e.key === "Escape") {
+              instance.close();
+            }
+          };
+          document.addEventListener("keydown", this.escImage);
+        },
+        onClose: () => {
+          document.removeEventListener("keydown", this.escImage);
+        },
+      }
+    )
     .show();
-}
-
-// Event listener on ESC
-
-document.addEventListener("keydown", escapeImage);
-function escapeImage(e) {
-  if (e.key === "Escape") {
-    console.log("Escape");
-  }
 }
