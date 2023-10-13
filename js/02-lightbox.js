@@ -73,41 +73,35 @@ const gallery = document.querySelector("ul");
 galleryItems.forEach((galleryItem) => {
   gallery.insertAdjacentHTML(
     "afterbegin",
-    "<li class='gallery__item'><a class='gallery__link'><img class='gallery__image'></img></a></li>"
+    `<li class="gallery__item"><a class="gallery__link" href="${galleryItem.original}"><img class="gallery__image" src = "${galleryItem.preview}" data-source="${galleryItem.original}" alt = "${galleryItem.description}"></img></a></li>`
   );
-
-  var galleryImage = gallery.querySelector(".gallery__image");
-  galleryImage.alt = galleryItem.description;
-  galleryImage.src = galleryItem.preview;
-  // galleryImage.data-source = galleryItem.original;
-
-  var galleryLink = gallery.querySelector(".gallery__link");
-  galleryLink.href = galleryItem.original;
-
-  //   galleryLink.addEventListener("click", (e) => {
-  //     e.preventDefault();
-  //   });
 });
 
-// Event listeners
+// Lightbox
 
-// gallery.addEventListener("click", clickLink);
-// function clickLink(e) {
-//   if (e.target.className !== "gallery__link") {return;}
-//   e.preventDefault();
-// }
-
-document.addEventListener("keydown", galleryImageClick);
-function galleryImageClick(e) {
-  if (e.key === "Escape") {
-    console.log("Escape");
-  }
-}
+// basicLightbox
+//   .create(
+//     `<img width="1400" height="900" src="${event.target.dataset.source}"/>`,
+//     {
+//       onShow: (instance) => {
+//         this.escImage = function (e) {
+//           if (e.key === "Escape") {
+//             instance.close();
+//           }
+//         };
+//         document.addEventListener("keydown", this.escImage);
+//       },
+//       onClose: () => {
+//         document.removeEventListener("keydown", this.escImage);
+//       },
+//     }
+//   )
+//   .show();
 
 // Simple Lightbox
 
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+// import SimpleLightbox from "simplelightbox";
+// import "simplelightbox/dist/simple-lightbox.min.css";
 
 gallery.addEventListener("click", openImageInLightbox);
 function openImageInLightbox(e) {
@@ -115,7 +109,7 @@ function openImageInLightbox(e) {
     return;
   }
   e.preventDefault();
-  new SimpleLightbox({
+  var lightbox = new SimpleLightbox(gallery, {
     elements: ".gallery a",
     captions: "true",
     captionSelector: "self",
@@ -124,7 +118,8 @@ function openImageInLightbox(e) {
     captionsData: "alt",
     captionDelay: "250",
     animationSlide: "true",
-    // animationSpeed: "250",
-    // enableKeyboard: "true",
+    animationSpeed: "250",
+    enableKeyboard: "true",
   });
+  lightbox.show();
 }
