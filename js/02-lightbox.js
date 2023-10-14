@@ -73,35 +73,23 @@ const gallery = document.querySelector("ul");
 galleryItems.forEach((galleryItem) => {
   gallery.insertAdjacentHTML(
     "afterbegin",
-    `<li class="gallery__item"><a class="gallery__link" href="${galleryItem.original}"><img class="gallery__image" src = "${galleryItem.preview}" data-source="${galleryItem.original}" alt = "${galleryItem.description}"></img></a></li>`
+    `<li class="gallery__item"><a class="gallery__link" href="${galleryItem.original}"><img class="gallery__image" src = "${galleryItem.preview}" alt = "${galleryItem.description}"></img></a></li>`
   );
 });
 
 // Simple Lightbox
 
-// import SimpleLightbox from "simplelightbox";
-// import "simplelightbox/dist/simple-lightbox.min.css";
-
-var lightbox = new SimpleLightbox(gallery, {
-  elements: ".gallery a",
-  captions: "true",
-  captionSelector: "self",
-  captionPosition: "bottom",
-  captionType: "attr",
+var lightbox = new SimpleLightbox(".gallery__link", {
   captionsData: "alt",
   captionDelay: "250",
-  animationSlide: "true",
-  animationSpeed: "250",
-  enableKeyboard: "true",
-  close: "true",
 });
 
 gallery.addEventListener("click", openImageInLightbox);
-function openImageInLightbox(e) {
-  if (e.target.nodeName !== "IMG") {
+function openImageInLightbox(event) {
+  if (event.target.getAttribute("class") !== "gallery__link") {
     return;
   }
-  e.preventDefault();
+  event.preventDefault();
   lightbox.open();
 }
 
